@@ -84,27 +84,38 @@ The target is dynamically adjusted based on the network’s performance, maintai
 
 The implementation is organized as follows:
 
-```
-project/
-├── src/
-│   ├── main.cpp
-│   ├── blockchain.cpp
-│   ├── mining.cpp
-│   ├── network.cpp
-│   └── ecc.cpp
-├── include/
-│   ├── blockchain.h
-│   ├── mining.h
-│   ├── network.h
-│   └── ecc.h
+```bash
+bitcoin_py/
+├── core/
+│   ├── __init__.py         # Initializes the core package
+│   ├── blockchain.py       # Contains blockchain-related classes and functions (e.g., CBlock, CBlockIndex)
+│   ├── transaction.py      # Contains transaction-related classes and functions (e.g., CTransaction, CWalletTx)
+│   ├── wallet.py           # Contains wallet-related classes and functions (e.g., wallet management)
+│   └── keys.py             # Handles cryptographic key management (e.g., CKey, AddKey, GenerateNewKey)
+│
+├── network/
+│   ├── __init__.py         # Initializes the network package
+│   ├── node.py             # Contains network node classes and functions (e.g., CNode, ConnectNode)
+│   ├── protocol.py         # Contains network communication logic (e.g., message headers, inventory handling)
+│   └── address.py          # Handles network address-related classes and functions (e.g., CAddress)
+│
+├── utils/
+│   ├── __init__.py         # Initializes the utilities package
+│   ├── crypto.py           # Cryptographic utilities (e.g., hashing functions, key generation helpers)
+│   ├── db.py               # Database and persistent storage logic (e.g., BerkeleyDB equivalents)
+│   └── helpers.py          # Miscellaneous helper functions
+│
 ├── tests/
-│   ├── test_blockchain.cpp
-│   ├── test_mining.cpp
-│   └── test_network.cpp
-├── docs/
-│   ├── whitepaper.md
-│   └── README.md
-└── CMakeLists.txt
+│   ├── __init__.py         # Initializes the testing package
+│   ├── test_blockchain.py  # Unit tests for blockchain module
+│   ├── test_transaction.py # Unit tests for transaction module
+│   ├── test_network.py     # Unit tests for network module
+│   └── ...                 # Additional test files
+│
+├── __init__.py             # Initializes the project as a package
+├── cli.py                  # A CLI interface to interact with the Python Bitcoin implementation
+└── config.py               # Configuration settings (e.g., defaults for the blockchain or network)
+
 ```
 
 ## Benefits
