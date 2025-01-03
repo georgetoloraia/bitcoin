@@ -1,0 +1,9 @@
+cryptography>=3.4.7
+protobuf>=3.20.0
+flask>=2.0.0
+requests>=2.25.1
+
+[dev]
+pytest>=6.0
+black>=22.0
+flake8>=3.9

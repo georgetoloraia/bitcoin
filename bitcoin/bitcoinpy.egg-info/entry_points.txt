@@ -1,0 +1,2 @@
+[console_scripts]
+run_node = network.p2p:start_node

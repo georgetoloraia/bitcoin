@@ -1,0 +1,9 @@
+LICENSE
+README.md
+setup.py
+bitcoinpy.egg-info/PKG-INFO
+bitcoinpy.egg-info/SOURCES.txt
+bitcoinpy.egg-info/dependency_links.txt
+bitcoinpy.egg-info/entry_points.txt
+bitcoinpy.egg-info/requires.txt
+bitcoinpy.egg-info/top_level.txt
