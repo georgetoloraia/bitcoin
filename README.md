@@ -1,149 +1,154 @@
-# Whitepaper: Proof-of-Concept Blockchain with Scalar Multiplication Mining
+# Bitcoin: A Python-Based Blockchain Implementation
 
 ## Abstract
 
-This whitepaper introduces a novel blockchain system leveraging scalar multiplication for mining. Unlike traditional Proof-of-Work (PoW) systems, which rely on computationally expensive hashing, this mechanism uses elliptic curve scalar multiplication to validate blocks. The approach is energy-efficient, secure, and ensures decentralized consensus.
+This project is a Python-based blockchain system that introduces a novel Proof-of-Work mechanism using elliptic curve scalar multiplication. It emphasizes energy efficiency, decentralization, and robust cryptographic security.
 
-## Introduction
+## Features
 
-Blockchain technology has revolutionized secure, decentralized systems. However, the PoW mechanism, which underpins many blockchains, suffers from excessive energy consumption and specialized hardware dependency. This paper proposes an alternative mining mechanism that utilizes elliptic curve cryptography (ECC) for block validation.
+- **Blockchain Core**: Implements a scalable and secure blockchain architecture.
+- **Scalar Multiplication Mining**: Utilizes elliptic curve cryptography for block validation.
+- **P2P Networking**: Facilitates decentralized peer-to-peer communication.
+- **Configurable CLI**: Allows interaction with the blockchain through a command-line interface.
 
-## Core Principles
-
-1. **Dynamic Generator Point**:
-   - Each block introduces a unique generator point derived from the hash of the previous block.
-   - This ensures that pre-computation is infeasible.
-
-2. **Scalar Multiplication**:
-   - Miners search for a scalar value that, when multiplied with the generator point, produces a valid block according to predefined rules.
-
-3. **Energy Efficiency**:
-   - The elliptic curve operations require less computational power than traditional hashing algorithms, reducing the system's carbon footprint.
-
-4. **Security**:
-   - The system leverages the mathematical hardness of elliptic curve discrete logarithms to ensure robust security.
-
-## System Design
-
-### Block Structure
-
-Each block includes:
-
-- **Index**: The block's position in the chain.
-- **Previous Hash**: The hash of the preceding block.
-- **Timestamp**: The time of block creation.
-- **Scalar**: The scalar value found during mining.
-- **Difficulty**: The mining difficulty level.
-- **Hash**: The block's unique hash.
-- **Data**: Transaction or arbitrary data.
-
-### Mining Mechanism
-
-1. **Dynamic Generator Point Calculation**:
-   - The generator point \( G_{block} \) is derived using SHA-256 on the previous block's hash:
-     
-     \[
-     G_{block} = H(previous\_hash)
-     \]
-
-2. **Scalar Multiplication**:
-   - Miners iterate through scalar values, computing:
-
-     \[
-     R = scalar \cdot G_{block}
-     \]
-
-   - The x-coordinate of \( R \) is compared against the mining target.
-
-3. **Validation**:
-   - If the x-coordinate meets the target criteria, the block is considered valid.
-
-### Target and Difficulty Adjustment
-
-The target is dynamically adjusted based on the network’s performance, maintaining a consistent block creation time.
-
-## Implementation Overview
-
-### Components
-
-1. **Blockchain**:
-   - Maintains the chain of blocks.
-   - Validates block integrity and linkage.
-
-2. **Mining Module**:
-   - Implements scalar multiplication-based mining.
-   - Ensures dynamic generator point calculation and solution validation.
-
-3. **Networking**:
-   - Facilitates peer-to-peer communication for block propagation and consensus.
-
-4. **ECC Operations**:
-   - Utilizes elliptic curve libraries for cryptographic computations.
-
-### Code Structure
-
-The implementation is organized as follows:
+## Project Structure
 
 ```bash
-bitcoin_py/
+bitcoin/
 ├── core/
-│   ├── __init__.py         # Initializes the core package
-│   ├── blockchain.py       # Contains blockchain-related classes and functions (e.g., CBlock, CBlockIndex)
-│   ├── transaction.py      # Contains transaction-related classes and functions (e.g., CTransaction, CWalletTx)
-│   ├── wallet.py           # Contains wallet-related classes and functions (e.g., wallet management)
-│   └── keys.py             # Handles cryptographic key management (e.g., CKey, AddKey, GenerateNewKey)
+│   ├── blockchain.py       # Blockchain and block classes
+│   ├── transaction.py      # Transaction and wallet classes
+│   ├── mining.py           # Mining algorithms and utilities
+│   ├── keys.py             # Cryptographic key handling
 │
 ├── network/
-│   ├── __init__.py         # Initializes the network package
-│   ├── node.py             # Contains network node classes and functions (e.g., CNode, ConnectNode)
-│   ├── protocol.py         # Contains network communication logic (e.g., message headers, inventory handling)
-│   └── address.py          # Handles network address-related classes and functions (e.g., CAddress)
+│   ├── p2p.py              # P2P communication and node handling
+│   ├── protocol.py         # Message handling and propagation
 │
 ├── utils/
-│   ├── __init__.py         # Initializes the utilities package
-│   ├── crypto.py           # Cryptographic utilities (e.g., hashing functions, key generation helpers)
-│   ├── db.py               # Database and persistent storage logic (e.g., BerkeleyDB equivalents)
-│   └── helpers.py          # Miscellaneous helper functions
+│   ├── crypto.py           # Cryptographic utilities
+│   ├── db.py               # Persistent storage handling
+│   ├── helpers.py          # Miscellaneous helper functions
 │
-├── tests/
-│   ├── __init__.py         # Initializes the testing package
-│   ├── test_blockchain.py  # Unit tests for blockchain module
-│   ├── test_transaction.py # Unit tests for transaction module
-│   ├── test_network.py     # Unit tests for network module
-│   └── ...                 # Additional test files
+├── tests/                  # Unit tests for various modules
 │
-├── __init__.py             # Initializes the project as a package
-├── cli.py                  # A CLI interface to interact with the Python Bitcoin implementation
-└── config.py               # Configuration settings (e.g., defaults for the blockchain or network)
-
+├── main.py                 # Main entry point for starting the node
+├── cli.py                  # Command-line interface for blockchain interaction
+├── config.py               # Configuration settings
+├── setup.py                # Project setup script
+├── requirements.txt        # Dependencies list
+└── README.md               # Project documentation
 ```
 
-## Benefits
+---
 
-1. **Energy Efficiency**:
-   - Scalar multiplication operations consume significantly less power than traditional hashing algorithms.
+## Installation
 
-2. **Decentralization**:
-   - Eliminates reliance on specialized hardware, enabling broader participation in mining.
+### Prerequisites
 
-3. **Security**:
-   - Relies on established ECC principles, providing robust cryptographic guarantees.
+- Python 3.7 or higher
+- `pip` (Python package manager)
 
-4. **Innovation**:
-   - Introduces a novel approach to mining, paving the way for future blockchain advancements.
+### Steps
 
-## Future Work
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/georgetoloraia/bitcoin.git
+   cd bitcoin
+   ```
 
-1. **Optimization**:
-   - Explore optimizations in ECC operations for faster mining.
+2. Create a virtual environment and activate it:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+   ```
 
-2. **Consensus Mechanism**:
-   - Integrate this mining mechanism with a hybrid Proof-of-Stake (PoS) system for enhanced scalability.
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-3. **Community Engagement**:
-   - Publish this concept for peer review and collaborate with developers to refine the system.
+4. Install the project locally:
+   ```bash
+   python setup.py install
+   ```
 
-## Conclusion
+---
 
-The proposed scalar multiplication-based mining mechanism represents a significant step towards sustainable and secure blockchain systems. By leveraging ECC principles, this approach addresses the inefficiencies of traditional PoW while maintaining decentralization and security. We invite the community to explore and contribute to this innovative project.
+## Usage
+
+### Start the Node
+
+Run the `main.py` script to start the node:
+```bash
+python main.py --host 127.0.0.1 --port 8333
+```
+By default, the node listens on `127.0.0.1:8333`.
+
+### Interact with the CLI
+
+The `cli.py` script allows interaction with the blockchain:
+```bash
+python cli.py
+```
+
+#### Available Commands
+- `mine_block`: Initiates the mining process.
+- `add_transaction`: Adds a transaction to the mempool.
+- `show_blockchain`: Displays the current state of the blockchain.
+
+### Run Tests
+
+To ensure the project is functioning correctly, run the test suite:
+```bash
+pytest tests/
+```
+
+---
+
+## How It Works
+
+### Blockchain Core
+- Maintains a chain of blocks with validated transactions.
+- Supports dynamic difficulty adjustment for mining.
+
+### Mining
+- Utilizes elliptic curve scalar multiplication instead of traditional hashing.
+- Reduces energy consumption while maintaining security.
+
+### P2P Networking
+- Nodes communicate using a custom protocol to propagate transactions and blocks.
+
+---
+
+## How to Contribute
+
+1. Fork the repository.
+2. Create a feature branch:
+   ```bash
+   git checkout -b feature/your-feature
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add your message here"
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature/your-feature
+   ```
+5. Submit a pull request.
+
+---
+
+## License
+
+This project is licensed under the MIT License. See `LICENSE` for details.
+
+---
+
+## Contact
+
+- **Author**: George Toloraia  
+- **Email**: georgetoloraia@gmail.com  
+- **GitHub**: [georgetoloraia](https://github.com/georgetoloraia)
 
