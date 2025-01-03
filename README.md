@@ -11,6 +11,31 @@ This project is a Python-based blockchain system that introduces a novel Proof-o
 - **P2P Networking**: Facilitates decentralized peer-to-peer communication.
 - **Configurable CLI**: Allows interaction with the blockchain through a command-line interface.
 
+## Download and Run the Bitcoin Node
+
+### Step 1: Download the Executable
+- Go to the [Releases page](https://github.com/<username>/<repo>/releases).
+- Download the appropriate file for your system:
+  - For Windows: `main.exe`
+  - For Linux/macOS: `main`
+
+### Step 2: Run the Executable
+1. Open a terminal (or command prompt on Windows).
+2. Navigate to the folder where you downloaded the executable.
+3. Run the program:
+   - On Linux/macOS:
+     ```bash
+     ./main
+     ```
+   - On Windows:
+     ```
+     main.exe
+     ```
+
+### Step 3: Interact with the Node
+Follow the on-screen instructions to start your Bitcoin node and interact with it!
+
+
 ## Project Structure
 
 ```bash
