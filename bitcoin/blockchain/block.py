@@ -1,7 +1,7 @@
 # blockchain/block.py
 
-from utils.merkle import build_merkle_tree
-from utils.crypto import double_sha256
+from bitcoin.utils.merkle import build_merkle_tree
+from bitcoin.utils.crypto import double_sha256
 
 
 class Block:
