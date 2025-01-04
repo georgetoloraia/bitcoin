@@ -1,15 +1,24 @@
-# main.py
+from bitcoin.blockchain.blockchain import Blockchain
+from bitcoin.mining.mining import Miner
 from bitcoin.network.p2p import P2PNode
+import threading
+import argparse
 
-if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser(description="Run a Bitcoin node.")
-    parser.add_argument("--host", default="127.0.0.1", help="Host to bind the node to")
-    parser.add_argument("--port", type=int, default=8333, help="Port to bind the node to")
+def main():
+    parser = argparse.ArgumentParser(description="Blockchain Node")
+    parser.add_argument("--host", type=str, default="127.0.0.1", help="Node host")
+    parser.add_argument("--port", type=int, default=8333, help="Node port")
+    parser.add_argument("--mine", action="store_true", help="Enable mining")
     args = parser.parse_args()
 
-    print(f"Starting Bitcoin Node at {args.host}:{args.port}...")
+    blockchain = Blockchain()
+    node = P2PNode(args.host, args.port)
 
-    node = P2PNode(host=args.host, port=args.port)  # Create an instance
-    node.start_node()  # Start the node
+    node_thread = threading.Thread(target=node.start_node)
+    node_thread.start()
+
+    if args.mine:
+        Miner.start_mining(blockchain)
+
+if __name__ == "__main__":
+    main()
